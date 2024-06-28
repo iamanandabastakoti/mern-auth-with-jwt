@@ -5,6 +5,9 @@ import Register from './pages/Register'
 import Home from './pages/Home'
 import { Slide, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios'
+
+axios.defaults.baseURL = 'http://localhost:5000';
 
 const App = () => {
   return (

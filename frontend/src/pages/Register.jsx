@@ -1,17 +1,31 @@
+import axios from 'axios';
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const Register = () => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     username: '',
     email: '',
     password: ''
   })
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    console.log(userData)
-    toast.success("Account created successfully")
+    // console.log(userData)
+    try {
+      await axios.post('/auth/register', userData);
+      toast.success("Account created successfully");
+      setUserData({
+        username: '',
+        email: '',
+        password: ''
+      });
+      navigate('/login');
+    } catch (error) {
+      console.log(error);
+      toast.error("Unable to create the account!");
+    }
   }
   return (
     <div className='w-1/3 flex flex-col items-center gap-3'>
