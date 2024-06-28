@@ -1,11 +1,16 @@
 const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
+
 const app = express();
-app.use(cors());
 const PORT = process.env.PORT || 5000;
-app.use(express.json());
 const connectDb = require("./db/connectDb");
+
+app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
 
 //importing the routes
 const auth_routes = require("./routes/authRoutes");
