@@ -1,16 +1,29 @@
+import axios from 'axios';
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     username: '',
     password: ''
   })
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log(userData)
-    toast.success('Logged in successfully');
+    // console.log(userData)
+    try {
+      const response = await axios.post('/auth/login', userData);
+      if (response.data === "Password Matched") {
+        toast.success('Logged in successfully');
+        navigate('/');
+      } else {
+        toast.error(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Unable to login!");
+    }
   }
   return (
     <div className='w-1/3 flex flex-col items-center gap-3'>

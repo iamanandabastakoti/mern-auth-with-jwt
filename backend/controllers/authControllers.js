@@ -35,8 +35,29 @@ const registerUser = async (req, res) => {
   }
 };
 
+const loginUser = async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      res.json("User not found!");
+    } else {
+      const match = await bcrypt.compare(password, user.password);
+      if (match) {
+        res.json("Password Matched");
+      } else {
+        res.json("Incorrect Password!");
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    res.json("Unable to login!");
+  }
+};
+
 module.exports = {
   testRoute,
   getAllUsers,
   registerUser,
+  loginUser,
 };
