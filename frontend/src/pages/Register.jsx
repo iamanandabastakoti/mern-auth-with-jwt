@@ -14,14 +14,18 @@ const Register = () => {
     e.preventDefault();
     // console.log(userData)
     try {
-      await axios.post('/auth/register', userData);
-      toast.success("Account created successfully");
-      setUserData({
-        username: '',
-        email: '',
-        password: ''
-      });
-      navigate('/login');
+      const response = await axios.post('/auth/register', userData);
+      if (response.data === "Account Created") {
+        toast.success("Account created successfully");
+        setUserData({
+          username: '',
+          email: '',
+          password: ''
+        });
+        navigate('/login');
+      } else {
+        toast.error(response.data);
+      }
     } catch (error) {
       console.log(error);
       toast.error("Unable to create the account!");
