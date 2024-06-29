@@ -14,11 +14,12 @@ const Login = () => {
     // console.log(userData)
     try {
       const response = await axios.post('/auth/login', userData);
-      if (response.data === "Password Matched") {
+      console.log(response.data.error);
+      if (response.data.error) {
+        toast.error(response.data.error)
+      } else {
         toast.success('Logged in successfully');
         navigate('/');
-      } else {
-        toast.error(response.data);
       }
     } catch (error) {
       console.log(error);

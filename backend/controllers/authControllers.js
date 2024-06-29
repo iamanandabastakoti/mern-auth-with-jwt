@@ -50,7 +50,7 @@ const loginUser = async (req, res) => {
   try {
     const user = await User.findOne({ username });
     if (!user) {
-      res.json("User not found!");
+      res.json({ error: "User not found!" });
     } else {
       const match = await bcrypt.compare(password, user.password);
       if (match) {
@@ -73,7 +73,7 @@ const loginUser = async (req, res) => {
           }
         );
       } else {
-        res.json("Incorrect Password!");
+        res.json({ error: "Incorrect Password!" });
       }
     }
   } catch (error) {
