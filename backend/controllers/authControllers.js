@@ -18,7 +18,7 @@ const getAllUsers = async (req, res) => {
 };
 
 const registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { name, username, email, password } = req.body;
   //hashing password
   const salt = await bcrypt.genSalt(10);
   const hashed_password = await bcrypt.hash(password, salt);
@@ -32,6 +32,7 @@ const registerUser = async (req, res) => {
       res.json("Email is already registered!");
     } else {
       const newUser = await User.create({
+        name,
         username,
         email,
         password: hashed_password,
@@ -58,6 +59,7 @@ const loginUser = async (req, res) => {
           {
             id: user._id,
             username: user.username,
+            name: user.name,
             email: user.email,
           },
           process.env.JWT_SECRET,
@@ -74,6 +76,7 @@ const loginUser = async (req, res) => {
               .json({
                 id: user._id,
                 username: user.username,
+                name: user.name,
                 email: user.email,
               });
           }

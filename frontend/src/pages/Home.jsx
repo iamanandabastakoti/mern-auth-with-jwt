@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { UserContext } from '../../context/userContext'
 
 const Home = () => {
-  const { user } = useContext(UserContext)
+  const { user } = useContext(UserContext);
   return (
     <div className='min-h-screen w-full bg-primaryText text-primaryBg'>
       <div className='sticky top-0 left-0 min-h-16 shadow-xl flex justify-center items-center'>
@@ -20,7 +20,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='p-4'>This is the main home page of the MERN Auth with JWT</div>
+      <div className='p-4'>Welcome {user?.name}. This is the main home page of the MERN Auth with JWT</div>
     </div>
   )
 }

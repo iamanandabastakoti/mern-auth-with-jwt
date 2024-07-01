@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 const Register = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
+    name: '',
     username: '',
     email: '',
     password: ''
@@ -18,6 +19,7 @@ const Register = () => {
       if (response.data === "Account Created") {
         toast.success("Account created successfully");
         setUserData({
+          name: '',
           username: '',
           email: '',
           password: ''
@@ -35,6 +37,10 @@ const Register = () => {
     <div className='w-1/3 flex flex-col items-center gap-3'>
       <h3 className='text-3xl text-center font-Montserrat text-mainColor'>Create an account</h3>
       <form onSubmit={handleRegister} className='flex flex-col gap-3 w-full'>
+        <div className='flex flex-col gap-1'>
+          <label htmlFor="name">Name</label>
+          <input className='p-2 rounded-lg bg-gray-700 outline-none text-primaryText' type="text" name='name' id='name' value={userData.name} onChange={e => setUserData({ ...userData, name: e.target.value })} placeholder='name' />
+        </div>
         <div className='flex flex-col gap-1'>
           <label htmlFor="username">Username</label>
           <input className='p-2 rounded-lg bg-gray-700 outline-none text-primaryText' type="text" name='username' id='username' value={userData.username} onChange={e => setUserData({ ...userData, username: e.target.value })} placeholder='username' />
