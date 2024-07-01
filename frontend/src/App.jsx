@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 import { UserContextProvider } from '../context/userContext'
 
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = `${import.meta.env.VITE_API}`;
 axios.defaults.withCredentials = true;
 
 const App = () => {
